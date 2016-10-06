@@ -47,16 +47,19 @@ public class Runner {
 	}
 	
 	public void run() throws SQLException {
-		String sql = "select tags->'name' from nodes where "; // TODO
+		String sql = "select tags->'name', ST_X(ST_Centroid(linestring)), ST_Y(ST_Centroid(linestring)) from ways where tags->'name' LIKE ?";
 		PreparedStatement ps = connection.prepareStatement(sql);
 		ps.setString(1, queryArg);
 		ResultSet rs = ps.executeQuery();
-		System.out.println("Nom   | Longitude | Latitude");
+
+		System.out.println(String.format("Nom   | Longitude | Latitude"));
 		System.out.println("------+-----------+---------");
+
 		while(rs.next()) {
 			Point p = new Point(rs.getString(1),rs.getFloat(2), rs.getFloat(3));
 			System.out.println(p.toString());
 		}
+
 	}
 	
 	public void tearDow() {
