@@ -4,9 +4,13 @@
 package main;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import database.Point;
 import database.Utils;
 
 /**
@@ -30,8 +34,9 @@ public class Runner {
 
 	/**
 	 * @param args
+	 * @throws SQLException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		if(args.length < 1) {
 			logger.log(Level.SEVERE, "1 argument expected, none received.");
 			return;
@@ -41,8 +46,17 @@ public class Runner {
 		runner.tearDow();
 	}
 	
-	public void run() {
-		
+	public void run() throws SQLException {
+		String sql = "select tags->'name' from nodes where "; // TODO
+		PreparedStatement ps = connection.prepareStatement(sql);
+		ps.setString(1, queryArg);
+		ResultSet rs = ps.executeQuery();
+		System.out.println("Nom   | Longitude | Latitude");
+		System.out.println("------+-----------+---------");
+		while(rs.next()) {
+			Point p = new Point(rs.getString(1),rs.getFloat(2), rs.getFloat(3));
+			System.out.println(p.toString());
+		}
 	}
 	
 	public void tearDow() {
