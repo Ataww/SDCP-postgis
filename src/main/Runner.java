@@ -7,11 +7,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
+import java.util.*;
 import java.util.logging.Logger;
 
-import database.Point;
+import database.SigBDD;
 import database.Utils;
+import geoexplorer.gui.*;
+import geoexplorer.gui.LineString;
+import geoexplorer.gui.Polygon;
 
 /**
  * @author couretn
@@ -20,48 +23,45 @@ import database.Utils;
 public class Runner {
 	
 	private static final Logger logger = Logger.getLogger(Runner.class.getName());
-	
+	private static final double LONG_MIN = 5.7;
+	private static final double LONG_MAX = 5.8;
+	private static final double LAT_MIN = 45.1;
+	private static final double LAT_MAX = 45.2;
 	private Connection connection;
-	String queryArg;
 
-	/**
-	 * 
-	 */
-	public Runner(String arg) {
+	public Runner() {
 		connection = Utils.getConnection();
-		queryArg = arg;
 	}
 
-	/**
-	 * @param args
-	 * @throws SQLException 
-	 */
-	public static void main(String[] args) throws SQLException {
-		if(args.length < 1) {
-			logger.log(Level.SEVERE, "1 argument expected, none received.");
-			return;
+	public void searchByNameMode(String pattern){
+		try {
+			System.out.print(SigBDD.getPositionFromName(pattern, connection));
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		Runner runner = new Runner(args[0]);
-		runner.run();
-		runner.tearDow();
 	}
-	
-	public void run() throws SQLException {
-		String sql = "select tags->'name', ST_X(ST_Centroid(linestring)), ST_Y(ST_Centroid(linestring)) from ways where tags->'name' LIKE ?";
-		PreparedStatement ps = connection.prepareStatement(sql);
-		ps.setString(1, queryArg);
-		ResultSet rs = ps.executeQuery();
 
-		System.out.println(String.format("Nom   | Longitude | Latitude"));
-		System.out.println("------+-----------+---------");
+	public void mapMode() throws SQLException {
+		try {
+			MapPanel map = new MapPanel(
+					LONG_MIN+((LONG_MAX-LONG_MIN)/2),
+					LAT_MIN+((LAT_MAX-LAT_MIN)/2),
+					LONG_MAX - LONG_MIN);
 
-		while(rs.next()) {
-			Point p = new Point(rs.getString(1),rs.getFloat(2), rs.getFloat(3));
-			System.out.println(p.toString());
+			ArrayList<Polygon> lPolygon = SigBDD.getBuilding(LONG_MIN, LONG_MAX, LAT_MIN, LAT_MAX, connection);
+			for (Polygon polygon : lPolygon)
+                map.addPrimitive(polygon);
+
+			ArrayList<LineString> lLineString = SigBDD.getRoads(LONG_MIN, LONG_MAX, LAT_MIN, LAT_MAX, connection);
+			for(LineString lineString : lLineString)
+                map.addPrimitive(lineString);
+
+			GeoMainFrame mainFrame = new GeoMainFrame("Test", map);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-
 	}
-	
+
 	public void tearDow() {
 		Utils.closeConnection();
 		connection = null;
