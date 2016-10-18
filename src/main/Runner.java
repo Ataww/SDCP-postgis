@@ -43,10 +43,7 @@ public class Runner {
 
 	public void mapMode() throws SQLException {
 		try {
-			MapPanel map = new MapPanel(
-					LONG_MIN+((LONG_MAX-LONG_MIN)/2),
-					LAT_MIN+((LAT_MAX-LAT_MIN)/2),
-					LONG_MAX - LONG_MIN);
+			MapPanel map = new MapPanel(1,1,1);
 
 			ArrayList<Polygon> lPolygon = SigBDD.getBuilding(LONG_MIN, LONG_MAX, LAT_MIN, LAT_MAX, connection);
 			for (Polygon polygon : lPolygon)
@@ -55,8 +52,9 @@ public class Runner {
 			ArrayList<LineString> lLineString = SigBDD.getRoads(LONG_MIN, LONG_MAX, LAT_MIN, LAT_MAX, connection);
 			for(LineString lineString : lLineString)
                 map.addPrimitive(lineString);
-
-			GeoMainFrame mainFrame = new GeoMainFrame("Test", map);
+			
+			GeoMainFrame mainFrame = new GeoMainFrame("TP SIG", map);
+			map.autoAdjust();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
