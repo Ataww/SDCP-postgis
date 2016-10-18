@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class SigBDD {
 
     public static ArrayList<Polygon> getBuilding(double longMin, double longMax, double latMin, double latMax, Connection connection) throws SQLException {
-        String sql = "select bbox from ways where ST_X(ST_Centroid(bbox)) BETWEEN ? AND ? AND ST_Y(ST_Centroid(bbox)) BETWEEN ? AND ? AND exist(tags,'building')";
+        String sql = "select ST_Transform(bbox,2154) from ways where ST_X(ST_Centroid(bbox)) BETWEEN ? AND ? AND ST_Y(ST_Centroid(bbox)) BETWEEN ? AND ? AND exist(tags,'building')";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setDouble(1, longMin);
         ps.setDouble(2, longMax);
@@ -41,7 +41,7 @@ public class SigBDD {
     }
 
     public static ArrayList<geoexplorer.gui.LineString> getRoads(double longMin, double longMax, double latMin, double latMax, Connection connection) throws SQLException {
-        String sql = "select linestring from ways where ST_X(ST_Centroid(bbox)) BETWEEN ? AND ? AND ST_Y(ST_Centroid(bbox)) BETWEEN ? AND ? AND exist(tags,'highway')";
+        String sql = "select ST_Transform(linestring,2154) from ways where ST_X(ST_Centroid(linestring)) BETWEEN ? AND ? AND ST_Y(ST_Centroid(linestring)) BETWEEN ? AND ? AND exist(tags,'highway')";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setDouble(1, longMin);
         ps.setDouble(2, longMax);
