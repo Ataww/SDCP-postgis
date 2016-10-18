@@ -52,6 +52,10 @@ public class Runner {
 			ArrayList<LineString> lLineString = SigBDD.getRoads(LONG_MIN, LONG_MAX, LAT_MIN, LAT_MAX, connection);
 			for(LineString lineString : lLineString)
                 map.addPrimitive(lineString);
+
+			ArrayList<Polygon> lStoresPolygon = SigBDD.getStores(LONG_MIN, LONG_MAX, LAT_MIN, LAT_MAX, connection);
+			for(Polygon polygon: lStoresPolygon)
+				map.addPrimitive(polygon);
 			
 			GeoMainFrame mainFrame = new GeoMainFrame("TP SIG", map);
 			map.autoAdjust();
