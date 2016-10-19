@@ -89,6 +89,56 @@ public class SigBDD {
         return lPolygon;
     }
 
+    public static ArrayList<Polygon> getQuartiersBoulangeries(Connection connection) throws SQLException {
+        String sql = "select quartier.the_geom, count(ways.id) from quartier, ways where ways.tags->'amenity' = 'school' AND ST_Intersects(the_geom, (ST_Transform(linestring,2154))) = TRUE group by quartier.the_geom ORDER BY count(ways.id) Desc;";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        ArrayList<geoexplorer.gui.Polygon> lPolygon = new ArrayList<>();
+
+        String[] colors = {
+                "#fffae6",
+                "#fff5cc",
+                "#fff0b3",
+                "#ffeb99",
+                "#ffe680",
+                "#ffe066",
+                "#ffdb4d",
+                "#ffd633",
+                "#ffd11a",
+                "#ffcc00",
+                "#e6b800",
+                "#cca300"
+        };
+
+        int color_num = -1;
+        int current_nb_boulangeries = 0;
+        int new_nb_boulangeries = 0;
+
+        while(rs.next()){
+            org.postgis.PGgeometry pGgeometry = (org.postgis.PGgeometry) rs.getObject(1);
+            org.postgis.MultiPolygon bbox = (org.postgis.MultiPolygon) pGgeometry.getGeometry();
+
+            new_nb_boulangeries = rs.getInt(2);
+
+            if(current_nb_boulangeries != new_nb_boulangeries){
+                color_num++;
+                current_nb_boulangeries = new_nb_boulangeries;
+            }
+
+            for(org.postgis.Polygon p : bbox.getPolygons()){
+                geoexplorer.gui.Polygon polygon = new geoexplorer.gui.Polygon(Color.decode(colors[color_num]), Color.decode(colors[color_num]));
+
+                for (int i = 0; i<bbox.numPoints(); i++)
+                {
+                    Point point = bbox.getPoint(i);
+                    polygon.addPoint(new geoexplorer.gui.Point(point.x, point.y));
+                }
+                lPolygon.add(polygon);
+            }
+        }
+        return lPolygon;
+    }
+
 
     public static String getPositionFromName(String pattern, Connection connection) throws SQLException {
         String sql = "select tags->'name', ST_X(ST_Centroid(linestring)), ST_Y(ST_Centroid(linestring)) from ways where tags->'name' LIKE ?";

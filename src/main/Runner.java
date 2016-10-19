@@ -15,6 +15,7 @@ import database.Utils;
 import geoexplorer.gui.*;
 import geoexplorer.gui.LineString;
 import geoexplorer.gui.Polygon;
+import database.MapMode;
 
 /**
  * @author couretn
@@ -41,27 +42,54 @@ public class Runner {
 		}
 	}
 
-	public void mapMode() throws SQLException {
+	public void mapMode(MapMode mode) throws SQLException {
 		try {
 			MapPanel map = new MapPanel(1,1,1);
 
-			ArrayList<Polygon> lPolygon = SigBDD.getBuilding(LONG_MIN, LONG_MAX, LAT_MIN, LAT_MAX, connection);
-			for (Polygon polygon : lPolygon)
-                map.addPrimitive(polygon);
-
-			ArrayList<LineString> lLineString = SigBDD.getRoads(LONG_MIN, LONG_MAX, LAT_MIN, LAT_MAX, connection);
-			for(LineString lineString : lLineString)
-                map.addPrimitive(lineString);
-
-			ArrayList<Polygon> lStoresPolygon = SigBDD.getStores(LONG_MIN, LONG_MAX, LAT_MIN, LAT_MAX, connection);
-			for(Polygon polygon: lStoresPolygon)
-				map.addPrimitive(polygon);
+			if(mode.equals(MapMode.BASIC)){
+				drawBuildings(map);
+				drawRoads(map);
+			}else if(mode.equals(MapMode.Q11)){
+				drawBuildings(map);
+				drawRoads(map);
+				drawStores(map);
+			}else if(mode.equals(MapMode.Q12)){
+				drawBuildings(map);
+				drawRoads(map);
+				drawBoulangeries(map);
+			}else{
+				System.out.println("No mode selected ...");
+			}
 			
 			GeoMainFrame mainFrame = new GeoMainFrame("TP SIG", map);
 			map.autoAdjust();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void drawRoads(MapPanel map) throws SQLException{
+		ArrayList<LineString> lLineString = SigBDD.getRoads(LONG_MIN, LONG_MAX, LAT_MIN, LAT_MAX, connection);
+		for(LineString lineString : lLineString)
+			map.addPrimitive(lineString);
+	}
+
+	public void drawBuildings(MapPanel map) throws SQLException{
+		ArrayList<Polygon> lPolygon = SigBDD.getBuilding(LONG_MIN, LONG_MAX, LAT_MIN, LAT_MAX, connection);
+		for (Polygon polygon : lPolygon)
+			map.addPrimitive(polygon);
+	}
+
+	public void drawBoulangeries(MapPanel map) throws SQLException{
+		ArrayList<Polygon> boulangeries = SigBDD.getQuartiersBoulangeries(connection);
+		for(Polygon polygon: boulangeries)
+			map.addPrimitive(polygon);
+	}
+
+	public void drawStores(MapPanel map) throws SQLException{
+		ArrayList<Polygon> stores = SigBDD.getStores(LONG_MIN, LONG_MAX, LAT_MIN, LAT_MAX, connection);
+		for(Polygon polygon: stores)
+			map.addPrimitive(polygon);
 	}
 
 	public void tearDow() {
