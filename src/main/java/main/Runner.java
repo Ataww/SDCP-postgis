@@ -46,11 +46,11 @@ public class Runner {
 			if(mode.equals(MapMode.BASIC)){
 				drawBuildings(map);
 				drawRoads(map);
-			}else if(mode.equals(MapMode.Q11)){
+			}else if(mode.equals(MapMode.Q13)){
 				drawBuildings(map);
 				drawRoads(map);
 				drawStores(map);
-			}else if(mode.equals(MapMode.Q13)){
+			}else if(mode.equals(MapMode.Q14)){
 				drawBuildings(map);
 				drawRoads(map);
 				drawBoulangeries(map);

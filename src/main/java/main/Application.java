@@ -11,8 +11,8 @@ public class Application {
         Runner runner = new Runner();
 
         if (args.length > 0){
-            if(args[0].equals("-q11")){
-                runner.mapMode(MapMode.Q11);
+            if(args[0].equals("-q14")){
+                runner.mapMode(MapMode.Q14);
             }else if(args[0].equals("-q13")){
                 runner.mapMode(MapMode.Q13);
             }else{
