@@ -1,0 +1,4 @@
+tocTab[tocTab.length] = new Array("0.3:1", "", "main", "EARoot/EA3/EA24.htm", "3.png", "10", "0", "", "Logical diagram0","{2A40258A-24E0-4219-B59F-84994CDB0359}");
+tocTab[tocTab.length] = new Array("0.3:2", "", "Application", "EARoot/EA3/EA27.htm", "5.png", "E53", "0", "", "Class0","{ABBE8F72-B88E-4fb7-BF59-0F2E9F26B5F7}");
+tocTab[tocTab.length] = new Array("0.3:3", "", "MapMode", "EARoot/EA3/EA28.htm", "247.png", "E54", "0", "", "Enumeration0","{F67E938B-CEC6-4f4b-8961-CA03DD4E5385}");
+tocTab[tocTab.length] = new Array("0.3:4", "", "Runner", "EARoot/EA3/EA29.htm", "5.png", "E55", "0", "", "Class0","{358FC3A3-96FB-4c79-8C0C-8079BACFE54F}");

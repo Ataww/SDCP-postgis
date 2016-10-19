@@ -1,0 +1,10 @@
+tocTab[tocTab.length] = new Array("0.2.1:1", "", "gui", "EARoot/EA2/EA1/EA12.htm", "3.png", "9", "0", "", "Logical diagram0","{3BAF7795-B340-441d-9F42-19B159F1B409}");
+tocTab[tocTab.length] = new Array("0.2.1:2", "", "BoundingBox", "EARoot/EA2/EA1/EA15.htm", "5.png", "E43", "0", "", "Class0","{BC369504-AFC9-4615-A4A6-FACC541E6FFD}");
+tocTab[tocTab.length] = new Array("0.2.1:3", "", "CoordinateConverter", "EARoot/EA2/EA1/EA16.htm", "5.png", "E44", "0", "", "Class0","{2825DC42-380B-4eaf-BD93-BF7BBE25CFF6}");
+tocTab[tocTab.length] = new Array("0.2.1:4", "", "GeoMainFrame", "EARoot/EA2/EA1/EA17.htm", "5.png", "E45", "0", "", "Class0","{39841209-6F73-45bb-BF9E-0A3FB3D4B809}");
+tocTab[tocTab.length] = new Array("0.2.1:5", "", "«interface» GraphicalPrimitive", "EARoot/EA2/EA1/EA18.htm", "8.png", "E46", "0", "", "Interface0","{85ABE723-1292-42f6-9676-47EF568EE01D}");
+tocTab[tocTab.length] = new Array("0.2.1:6", "", "LineString", "EARoot/EA2/EA1/EA19.htm", "5.png", "E47", "0", "", "Class0","{D9C4C8B1-F38D-46c0-A5F9-3C2D3F1E9088}");
+tocTab[tocTab.length] = new Array("0.2.1:7", "", "MapPanel", "EARoot/EA2/EA1/EA20.htm", "5.png", "E49", "0", "", "Class0","{006AFBF4-23A7-42fe-9337-4011E8AF73D8}");
+tocTab[tocTab.length] = new Array("0.2.1:8", "", "Point", "EARoot/EA2/EA1/EA21.htm", "5.png", "E50", "0", "", "Class0","{11989F9B-81F6-4a8c-B2B6-1475E45EC950}");
+tocTab[tocTab.length] = new Array("0.2.1:9", "", "Polygon", "EARoot/EA2/EA1/EA22.htm", "5.png", "E51", "0", "", "Class0","{EDF129BC-6563-470c-9966-FCC7581A84F5}");
+tocTab[tocTab.length] = new Array("0.2.1:10", "", "MouseController", "EARoot/EA2/EA1/EA23.htm", "5.png", "E48", "E49", "", "Class0","{883C5025-BEA7-47c2-94AD-353614D4E48A}");
