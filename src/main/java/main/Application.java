@@ -16,8 +16,8 @@ public class Application {
         if (args.length > 0){
             if(args[0].equals("-q11")){
                 runner.mapMode(MapMode.Q11);
-            }else if(args[0].equals("-q12")){
-                runner.mapMode(MapMode.Q12);
+            }else if(args[0].equals("-q13")){
+                runner.mapMode(MapMode.Q13);
             }else{
                 runner.searchByNameMode(args[0]);
             }

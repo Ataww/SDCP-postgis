@@ -5,6 +5,6 @@ package database;
  */
 public enum MapMode {
     Q11,
-    Q12,
+    Q13,
     BASIC
 }

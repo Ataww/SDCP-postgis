@@ -53,7 +53,7 @@ public class Runner {
 				drawBuildings(map);
 				drawRoads(map);
 				drawStores(map);
-			}else if(mode.equals(MapMode.Q12)){
+			}else if(mode.equals(MapMode.Q13)){
 				drawBuildings(map);
 				drawRoads(map);
 				drawBoulangeries(map);
