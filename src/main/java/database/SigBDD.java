@@ -23,7 +23,7 @@ public class SigBDD {
         ps.setDouble(3, latMin);
         ps.setDouble(4, latMax);
         ResultSet rs = ps.executeQuery();
-        ArrayList<geoexplorer.gui.Polygon> lPolygon = new ArrayList<>();
+        ArrayList<Polygon> lPolygon = new ArrayList<>();
 
         while(rs.next()){
             org.postgis.PGgeometry pGgeometry = (org.postgis.PGgeometry) rs.getObject(1);
