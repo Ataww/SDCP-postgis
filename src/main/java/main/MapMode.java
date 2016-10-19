@@ -1,4 +1,4 @@
-package database;
+package main;
 
 /**
  * Created by vince on 19/10/16.
