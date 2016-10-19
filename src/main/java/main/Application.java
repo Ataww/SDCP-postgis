@@ -1,9 +1,6 @@
 package main;
 
-import database.MapMode;
-
 import java.sql.SQLException;
-import java.util.logging.Logger;
 
 /**
  * Created by Tabs on 12/10/2016.

@@ -4,8 +4,6 @@
 package main;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.logging.Logger;
@@ -15,7 +13,6 @@ import database.Utils;
 import geoexplorer.gui.*;
 import geoexplorer.gui.LineString;
 import geoexplorer.gui.Polygon;
-import database.MapMode;
 
 /**
  * @author couretn
